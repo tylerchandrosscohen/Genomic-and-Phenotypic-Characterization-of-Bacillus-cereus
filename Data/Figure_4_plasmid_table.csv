@@ -1,0 +1,246 @@
+"Isolate_ID","panC_Group","Isolation_Source","MOB_Cluster","Size_bp","Topology","Rep_Types","Plasmid_hbl","Closest_Type_Strain","Type_Strain_ANI"
+"PS03258","Group_IV","Human feces","AE050",242574,"Circular","rep_cluster_1912",FALSE,"B. thuringiensis",97.81
+"PS03258","Group_IV","Human feces","novel_2556cc9dc557cb6d13bcdc22ec2626f8",72985,"Circular","-",FALSE,"B. thuringiensis",97.81
+"PS03258","Group_IV","Human feces","AE560",4687,"Circular","-",FALSE,"B. thuringiensis",97.81
+"PS03260","Group_IV","Human feces","novel_8e9869fddba418af2651223861737b3d",14222,"Circular","rep_cluster_1848",FALSE,"B. cereus",97.16
+"PS03261","Group_IV","Human feces","novel_c79020b040a0f29f3a3db3b0499f5697",63563,"Circular","rep_cluster_920",FALSE,"B. cereus",97.1
+"PS03261","Group_IV","Human feces","AD602",11857,"Circular","rep_cluster_1821",FALSE,"B. cereus",97.1
+"PS03261","Group_IV","Human feces","novel_b23a107ab03aef51a7806bd562052a06",8247,"Circular","-",FALSE,"B. cereus",97.1
+"PS03261","Group_IV","Human feces","AA681",7385,"Circular","-",FALSE,"B. cereus",97.1
+"PS03262","Group_IV","Human feces","AA783",301149,"Circular","rep_cluster_125,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","AC680",72851,"Circular","rep_cluster_1721",FALSE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","AD034",72450,"Circular","rep_cluster_484",FALSE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","AD536",49468,"Circular","rep_cluster_757",FALSE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","AA660",25894,"Not closed","rep_cluster_485,rep_cluster_617",FALSE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","AC114",14553,"Circular","-",FALSE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","novel_df349c1287b9e957caa7ee4d2f06d241",9463,"Circular","rep_cluster_1767",FALSE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","AB999",8240,"Circular","rep_cluster_2006",FALSE,"B. cereus",96.91
+"PS03262","Group_IV","Human feces","AC115",5535,"Circular","-",FALSE,"B. cereus",96.91
+"PS03263","Group_IV","Human feces","AA783",304615,"Circular","rep_cluster_125,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AC680",76269,"Circular","rep_cluster_1721",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AD034",74824,"Circular","rep_cluster_1721,rep_cluster_484",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AB979",67331,"Circular","rep_cluster_169,rep_cluster_1721",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AF609",70310,"Not closed","-",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AB427",18730,"Circular","rep_cluster_1721,rep_cluster_1767",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AD370",11366,"Circular","rep_cluster_485",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AA656",8513,"Circular","rep_cluster_617",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AB999",8240,"Circular","rep_cluster_2006",FALSE,"B. cereus",96.84
+"PS03263","Group_IV","Human feces","AA661",7635,"Circular","rep_cluster_617,rep_cluster_617",FALSE,"B. cereus",96.84
+"PS03264","Group_IV","Human feces","AC681",104630,"Circular","-",FALSE,"B. cereus",98.88
+"PS03264","Group_IV","Human feces","AD402",50090,"Circular","rep_cluster_920",FALSE,"B. cereus",98.88
+"PS03264","Group_IV","Human feces","AD602",12391,"Circular","rep_cluster_1821",FALSE,"B. cereus",98.88
+"PS03264","Group_IV","Human feces","novel_166e252961cdb2c471a47242e238dc60",8247,"Circular","-",FALSE,"B. cereus",98.88
+"PS03264","Group_IV","Human feces","AA659",8095,"Circular","rep_cluster_268",FALSE,"B. cereus",98.88
+"PS03264","Group_IV","Human feces","AF069",3091,"Circular","rep_cluster_1950",FALSE,"B. cereus",98.88
+"PS03266","Group_III","Human feces","AA792",271743,"Circular","rep_cluster_125,rep_cluster_1698",FALSE,"B. paranthracis",97.57
+"PS03266","Group_III","Human feces","novel_7daf680537bb0878af59a5edbaa197e6",76629,"Circular","rep_cluster_163",FALSE,"B. paranthracis",97.57
+"PS03266","Group_III","Human feces","AA659",8095,"Circular","rep_cluster_268",FALSE,"B. paranthracis",97.57
+"PS03266","Group_III","Human feces","AC588",5435,"Circular","-",FALSE,"B. paranthracis",97.57
+"PS03267","Group_III","Human feces","AB672",157357,"Not closed","rep_cluster_125,rep_cluster_164",FALSE,"B. paranthracis",97.67
+"PS03267","Group_III","Human feces","AC681",53897,"Circular","-",FALSE,"B. paranthracis",97.67
+"PS03267","Group_III","Human feces","novel_67f9125a75997871b150df855c504e0e",6037,"Circular","rep_cluster_1909",FALSE,"B. paranthracis",97.67
+"PS03267","Group_III","Human feces","AF069",3091,"Circular","rep_cluster_1950",FALSE,"B. paranthracis",97.67
+"PS03269","Group_IV","Human feces","novel_3639794ac5350a96e6209b9ff4731e73",109926,"Circular","rep_cluster_1645",FALSE,"B. thuringiensis",96.3
+"PS03269","Group_IV","Human feces","novel_a468973cacab02d951d1b253298d75ed",11837,"Circular","rep_cluster_1848,rep_cluster_1895",FALSE,"B. thuringiensis",96.3
+"PS03270","Group_IV","Human feces","AC681",104552,"Not closed","-",FALSE,"B. cereus",98.91
+"PS03270","Group_IV","Human feces","AD402",50090,"Circular","rep_cluster_920",FALSE,"B. cereus",98.91
+"PS03271","Group_III","Human feces","AA792",248568,"Circular","rep_cluster_125,rep_cluster_1698",FALSE,"B. paranthracis",97.53
+"PS03271","Group_III","Human feces","AD537",47972,"Circular","rep_cluster_1524",FALSE,"B. paranthracis",97.53
+"PS03271","Group_III","Human feces","AC588",5436,"Circular","-",FALSE,"B. paranthracis",97.53
+"PS03273","Group_IV","Human feces","AC681",101762,"Circular","-",FALSE,"B. cereus",98.92
+"PS03273","Group_IV","Human feces","novel_ed111310c717a0f75a4890686acfe4d0",54391,"Circular","rep_cluster_920",FALSE,"B. cereus",98.92
+"PS03273","Group_IV","Human feces","AD602",12427,"Circular","rep_cluster_1821",FALSE,"B. cereus",98.92
+"PS03273","Group_IV","Human feces","AF069",3091,"Circular","rep_cluster_1950",FALSE,"B. cereus",98.92
+"PS03274","Group_III","Human feces","AA792",242741,"Circular","rep_cluster_125,rep_cluster_1698",FALSE,"B. paranthracis",98.9
+"PS03274","Group_III","Human feces","novel_d6ee5b7c4015006e6bcebecdaa4f6927",61693,"Circular","rep_cluster_1738,rep_cluster_920",FALSE,"B. paranthracis",98.9
+"PS03274","Group_III","Human feces","AC588",6031,"Circular","-",FALSE,"B. paranthracis",98.9
+"PS03275","Group_IV","Human feces","novel_f8c385a03b5f9f53be611fe3fb7ca068",247241,"Circular","rep_cluster_125",TRUE,"B. cereus",96.86
+"PS03275","Group_IV","Human feces","AC349",86670,"Circular","rep_cluster_163",FALSE,"B. cereus",96.86
+"PS03275","Group_IV","Human feces","AB999",8213,"Circular","-",FALSE,"B. cereus",96.86
+"PS03277","Group_III","Human feces","AB672",334042,"Circular","rep_cluster_164",FALSE,"B. paranthracis",97.53
+"PS03277","Group_III","Human feces","novel_8b7d066932087423a967c371ef1a5724",77874,"Circular","rep_cluster_920",FALSE,"B. paranthracis",97.53
+"PS03277","Group_III","Human feces","AC681",54417,"Circular","-",FALSE,"B. paranthracis",97.53
+"PS03277","Group_III","Human feces","AH115",11746,"Circular","-",FALSE,"B. paranthracis",97.53
+"PS03277","Group_III","Human feces","AC588",5436,"Circular","-",FALSE,"B. paranthracis",97.53
+"PS03277","Group_III","Human feces","AC587",3869,"Circular","rep_cluster_1931",FALSE,"B. paranthracis",97.53
+"PS03277","Group_III","Human feces","AF069",3091,"Circular","rep_cluster_1950",FALSE,"B. paranthracis",97.53
+"PS03278","Group_III","Human feces","AB672",309232,"Circular","rep_cluster_125,rep_cluster_164",FALSE,"B. pacificus",98.23
+"PS03279","Group_IV","Human feces","AC681",104594,"Circular","-",FALSE,"B. cereus",98.84
+"PS03279","Group_IV","Human feces","novel_5d25740104f120ae18693698b5772e8d",54837,"Circular","rep_cluster_920",FALSE,"B. cereus",98.84
+"PS03279","Group_IV","Human feces","AD602",11486,"Circular","rep_cluster_1821",FALSE,"B. cereus",98.84
+"PS03279","Group_IV","Human feces","AA659",8697,"Circular","rep_cluster_268",FALSE,"B. cereus",98.84
+"PS03280","Group_III","Human feces","AA795",260783,"Circular","rep_cluster_125",FALSE,"B. paranthracis",97.51
+"PS03280","Group_III","Human feces","novel_7a95af852f5df4e840f9b15582786efd",87602,"Circular","rep_cluster_920",FALSE,"B. paranthracis",97.51
+"PS03280","Group_III","Human feces","AD537",53070,"Not closed","-",FALSE,"B. paranthracis",97.51
+"PS03280","Group_III","Human feces","AA661",8252,"Circular","rep_cluster_617",FALSE,"B. paranthracis",97.51
+"PS03281","Group_V","Human feces","AE216",308435,"Circular","rep_cluster_1869",TRUE,"B. toyonensis",99.36
+"PS03281","Group_V","Human feces","novel_d256063e8b1e568bd84cffa56162b8ba",286706,"Circular","rep_cluster_164",FALSE,"B. toyonensis",99.36
+"PS03281","Group_V","Human feces","novel_17423be08d24b41c0eb07d4fa79b70d3",43090,"Circular","rep_cluster_1520",FALSE,"B. toyonensis",99.36
+"PS03281","Group_V","Human feces","novel_11b25580392f120635722e6b65f7cf27",9176,"Circular","rep_cluster_1830",FALSE,"B. toyonensis",99.36
+"PS03282","Group_III","Human feces","AA792",273029,"Circular","rep_cluster_125",FALSE,"B. pacificus",98.31
+"PS03283","Group_V","Human feces","novel_a6481f12f1ec1e1073e642026d51c37f",376051,"Circular","rep_cluster_1869",TRUE,"B. toyonensis",99.35
+"PS03284","Group_III","Human feces","AD602",13718,"Circular","rep_cluster_1821",FALSE,"B. paranthracis",98.39
+"PS03284","Group_III","Human feces","AF069",3091,"Circular","rep_cluster_1950",FALSE,"B. paranthracis",98.39
+"PS03285","Group_V","Human feces","AE216",276876,"Not closed","rep_cluster_1869",TRUE,"B. toyonensis",99.39
+"PS03285","Group_V","Human feces","novel_dc65e3d783d7ad487efd7906fb94cb9c",125648,"Circular","rep_cluster_1520,rep_cluster_163",FALSE,"B. toyonensis",99.39
+"PS03285","Group_V","Human feces","novel_0af6f6cd2c090428ac48d0f6bac0e2d3",10123,"Circular","rep_cluster_1832",FALSE,"B. toyonensis",99.39
+"PS03286","Group_IV","Human feces","novel_b764b6bc6ca2e5915722ee3ad817a34d",238779,"Circular","rep_cluster_125",TRUE,"B. cereus",97.03
+"PS03286","Group_IV","Human feces","AF610",160766,"Circular","rep_cluster_1912",FALSE,"B. cereus",97.03
+"PS03286","Group_IV","Human feces","novel_2ebf6aab45975593d366b6de39e749d4",14224,"Circular","rep_cluster_1848",FALSE,"B. cereus",97.03
+"PS03287","Group_IV","Human feces","AA794",359711,"Not closed","rep_cluster_125",FALSE,"B. cereus",98.82
+"PS03287","Group_IV","Human feces","AC681",53961,"Circular","-",FALSE,"B. cereus",98.82
+"PS03287","Group_IV","Human feces","AD602",13117,"Circular","rep_cluster_1821",FALSE,"B. cereus",98.82
+"PS03287","Group_IV","Human feces","AA659",8095,"Circular","rep_cluster_268",FALSE,"B. cereus",98.82
+"PS03288","Group_IV","Human feces","AA783",300458,"Circular","rep_cluster_125,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AD034",91406,"Circular","rep_cluster_1721,rep_cluster_484",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AC680",77795,"Circular","rep_cluster_1721",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AB979",69062,"Circular","rep_cluster_169,rep_cluster_1721",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AD181",14895,"Not closed","-",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AD369",12149,"Circular","rep_cluster_814",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AA656",8513,"Circular","rep_cluster_617",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AA659",7921,"Circular","rep_cluster_268",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AA661",7635,"Circular","rep_cluster_617",FALSE,"B. cereus",96.84
+"PS03288","Group_IV","Human feces","AF086",2062,"Circular","rep_cluster_1434",FALSE,"B. cereus",96.84
+"PS03289","Group_V","Human feces","AE216",293262,"Circular","rep_cluster_1869",TRUE,"B. toyonensis",99.34
+"PS03289","Group_V","Human feces","novel_c99dee928a387cd16d8b913c7d909462",269810,"Circular","rep_cluster_164",FALSE,"B. toyonensis",99.34
+"PS03289","Group_V","Human feces","novel_3a3d907df57844dbe39cfc8386a99676",97834,"Circular","rep_cluster_459,rep_cluster_920",FALSE,"B. toyonensis",99.34
+"PS03289","Group_V","Human feces","AD600",7247,"Circular","rep_cluster_1830",FALSE,"B. toyonensis",99.34
+"PS03290","Group_IV","Human feces","AB672",329893,"Circular","rep_cluster_125,rep_cluster_164",FALSE,"B. cereus",98.85
+"PS03290","Group_IV","Human feces","AC681",68932,"Circular","rep_cluster_1721",FALSE,"B. cereus",98.85
+"PS03291","Group_IV","Human feces","novel_0a651c05cdf4bab0b9f8371ce93e21b8",376776,"Circular","rep_cluster_125,rep_cluster_164",FALSE,"B. cereus",98.88
+"PS03291","Group_IV","Human feces","novel_e5296c290db1fa54c9609e0fd620e6ae",54237,"Circular","rep_cluster_920",FALSE,"B. cereus",98.88
+"PS03291","Group_IV","Human feces","novel_098957df3451dab3d1a7d348a6e142df",53663,"Circular","rep_cluster_1575",FALSE,"B. cereus",98.88
+"PS03291","Group_IV","Human feces","AD602",13396,"Circular","rep_cluster_1821",FALSE,"B. cereus",98.88
+"PS03291","Group_IV","Human feces","novel_73f3eb4f08dd475aa90ff7d3a5f318dd",7211,"Circular","rep_cluster_617",FALSE,"B. cereus",98.88
+"PS03292","Group_IV","Human feces","AA783",317339,"Circular","rep_cluster_125,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AA951",80699,"Circular","rep_cluster_163",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AD034",69369,"Not closed","rep_cluster_1721,rep_cluster_484",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AB979",84314,"Not closed","rep_cluster_169,rep_cluster_1721",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AD536",51884,"Circular","rep_cluster_757",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AD370",14889,"Circular","rep_cluster_2117",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AA656",8513,"Circular","rep_cluster_617",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AB999",8279,"Circular","rep_cluster_2006",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AA661",7635,"Circular","rep_cluster_617,rep_cluster_617",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AD183",7053,"Not closed","-",FALSE,"B. cereus",96.89
+"PS03292","Group_IV","Human feces","AF086",2062,"Circular","rep_cluster_1434",FALSE,"B. cereus",96.89
+"PS03293","Group_IV","Human feces","AA783",301150,"Circular","rep_cluster_125,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AB979",78383,"Circular","rep_cluster_169,rep_cluster_1721",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AC680",72851,"Circular","rep_cluster_1721",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AD034",72511,"Circular","rep_cluster_484",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AD536",60477,"Not closed","rep_cluster_757",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AC114",14553,"Circular","-",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AD369",12727,"Circular","rep_cluster_485,rep_cluster_617",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AA660",10657,"Circular","rep_cluster_617",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","novel_df349c1287b9e957caa7ee4d2f06d241",9463,"Circular","rep_cluster_1767",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AB999",8240,"Circular","rep_cluster_2006",FALSE,"B. cereus",96.83
+"PS03293","Group_IV","Human feces","AC115",5535,"Circular","-",FALSE,"B. cereus",96.83
+"PS03294","Group_III","Human feces","AA792",278167,"Not closed","rep_cluster_125,rep_cluster_1698",FALSE,"B. paranthracis",97.55
+"PS03294","Group_III","Human feces","AD537",52486,"Circular","rep_cluster_1524",FALSE,"B. paranthracis",97.55
+"PS03294","Group_III","Human feces","AC588",5435,"Circular","-",FALSE,"B. paranthracis",97.55
+"PS03294","Group_III","Human feces","AC587",3869,"Circular","rep_cluster_1931",FALSE,"B. paranthracis",97.55
+"PS03296","Group_III","Human feces","AA792",273029,"Circular","rep_cluster_125",FALSE,"B. pacificus",98.29
+"PS03297","Group_IV","Human feces","AA783",307963,"Not closed","rep_cluster_125,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AA951",71581,"Not closed","rep_cluster_163",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AC680",69355,"Circular","rep_cluster_1721",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AD034",70461,"Not closed","rep_cluster_1721,rep_cluster_484",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AB979",74543,"Not closed","rep_cluster_169,rep_cluster_1721",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AD536",46634,"Circular","rep_cluster_757",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AD370",14889,"Circular","rep_cluster_2117",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AA656",8513,"Circular","rep_cluster_617",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AB999",8279,"Circular","rep_cluster_2006",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AA661",7635,"Circular","rep_cluster_617",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AD183",7057,"Not closed","-",FALSE,"B. cereus",96.89
+"PS03297","Group_IV","Human feces","AF086",2062,"Circular","rep_cluster_1434",FALSE,"B. cereus",96.89
+"PS03298","Group_IV","Human feces","novel_fac645fbed7887ce31b2b6eade7d04f5",412035,"Circular","rep_cluster_125,rep_cluster_1721",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AA783",317339,"Circular","rep_cluster_125,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AD034",82531,"Circular","rep_cluster_1721,rep_cluster_484",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AA951",80699,"Circular","rep_cluster_163",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AC680",69355,"Circular","rep_cluster_1721",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AB979",80172,"Not closed","rep_cluster_169,rep_cluster_1721,rep_cluster_1721",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AD536",46634,"Circular","rep_cluster_757",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AD370",14889,"Circular","rep_cluster_2117",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AA656",8513,"Circular","rep_cluster_617",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AB999",8279,"Circular","rep_cluster_2006",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AA661",7635,"Circular","rep_cluster_617,rep_cluster_617",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AD183",6985,"Not closed","-",FALSE,"B. cereus",96.88
+"PS03298","Group_IV","Human feces","AF086",2062,"Circular","rep_cluster_1434",FALSE,"B. cereus",96.88
+"PS03299","Group_IV","Human feces","AC681",107065,"Circular","-",FALSE,"B. cereus",98.92
+"PS03299","Group_IV","Human feces","AD402",50090,"Circular","rep_cluster_920",FALSE,"B. cereus",98.92
+"PS03300","Group_III","Human feces","AB672",388735,"Not closed","rep_cluster_125,rep_cluster_164",FALSE,"B. paranthracis",97.64
+"PS03300","Group_III","Human feces","AC681",68943,"Not closed","-",FALSE,"B. paranthracis",97.64
+"PS03300","Group_III","Human feces","novel_6536aa4ac235dd875e5ba115d8241d5e",56396,"Circular","rep_cluster_1524",FALSE,"B. paranthracis",97.64
+"PS03300","Group_III","Human feces","AA659",8696,"Circular","rep_cluster_268",FALSE,"B. paranthracis",97.64
+"PS03300","Group_III","Human feces","AC587",3869,"Circular","rep_cluster_1931",FALSE,"B. paranthracis",97.64
+"PS03301","Group_III","Human feces","AC681",54180,"Circular","-",FALSE,"B. paranthracis",98.33
+"PS03301","Group_III","Human feces","AD602",16028,"Circular","rep_cluster_1821",FALSE,"B. paranthracis",98.33
+"PS03301","Group_III","Human feces","AF067",3166,"Circular","-",FALSE,"B. paranthracis",98.33
+"PS03302","Group_IV","Human feces","AA783",267505,"Not closed","rep_cluster_125,rep_cluster_1721,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AD034",74444,"Circular","rep_cluster_1721,rep_cluster_484",FALSE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AC680",71109,"Circular","rep_cluster_1721",FALSE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AF609",70310,"Not closed","-",FALSE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AD370",11834,"Not closed","rep_cluster_814",FALSE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AA656",8514,"Circular","rep_cluster_617",FALSE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AB999",8240,"Circular","rep_cluster_2006",FALSE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AA659",7921,"Circular","rep_cluster_268",FALSE,"B. cereus",96.86
+"PS03302","Group_IV","Human feces","AA661",7635,"Circular","rep_cluster_617",FALSE,"B. cereus",96.86
+"PS03303","Group_II","Human feces","AA792",304437,"Not closed","rep_cluster_125",FALSE,"B. mobilis",99.89
+"PS03303","Group_II","Human feces","AD602",17777,"Circular","rep_cluster_1821",FALSE,"B. mobilis",99.89
+"PS03303","Group_II","Human feces","AF067",3166,"Circular","-",FALSE,"B. mobilis",99.89
+"PS03304","Group_IV","Human feces","AB672",301284,"Not closed","rep_cluster_125,rep_cluster_164",FALSE,"B. cereus",98.74
+"PS03304","Group_IV","Human feces","AA680",7249,"Circular","-",FALSE,"B. cereus",98.74
+"PS03304","Group_IV","Human feces","AF069",3091,"Circular","rep_cluster_1950",FALSE,"B. cereus",98.74
+"PS03305","Group_IV","Surface swab","novel_7fa7d7417ce1e32441c7e35969971c99",68779,"Circular","rep_cluster_1698,rep_cluster_1912",FALSE,"B. cereus",98.08
+"PS03306","Group_VIII","Surface swab","novel_840919b80c2c5d9162c46d957fca5331",11602,"Circular","rep_cluster_1836",FALSE,"B. proteolyticus",98.36
+"PS03306","Group_VIII","Surface swab","novel_7f58deb779a72d9b259fd5e810458dd0",11591,"Circular","rep_cluster_1895",FALSE,"B. proteolyticus",98.36
+"PS03306","Group_VIII","Surface swab","AD590",9488,"Circular","rep_cluster_1848",FALSE,"B. proteolyticus",98.36
+"PS03308","Group_III","Surface swab","AD602",7916,"Not closed","rep_cluster_1821",FALSE,"B. anthracis",97.6
+"PS03308","Group_III","Surface swab","AA680",7417,"Circular","-",FALSE,"B. anthracis",97.6
+"PS03308","Group_III","Surface swab","novel_01b749bf5e3688f7f961bcea8a43a225",4431,"Circular","-",FALSE,"B. anthracis",97.6
+"PS03308","Group_III","Surface swab","AF067",3166,"Circular","-",FALSE,"B. anthracis",97.6
+"PS03309","Group_IV","Surface swab","novel_e4f9fbcc8c945ad1e83b85b0c935e725",298075,"Circular","rep_cluster_164",FALSE,"B. thuringiensis",96.31
+"PS03309","Group_IV","Surface swab","AE050",249410,"Circular","rep_cluster_1912",FALSE,"B. thuringiensis",96.31
+"PS03310","Group_IV","Food","AA783",292956,"Not closed","rep_cluster_125,rep_cluster_1721,rep_cluster_1721,rep_cluster_1721",TRUE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AD034",91406,"Circular","rep_cluster_1721,rep_cluster_484",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AB979",71032,"Circular","rep_cluster_169,rep_cluster_1721",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AC680",53254,"Not closed","rep_cluster_1721",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AB427",17064,"Circular","rep_cluster_1721,rep_cluster_1767",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AD369",12149,"Circular","rep_cluster_814",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AA656",8513,"Circular","rep_cluster_617",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AD181",9282,"Not closed","-",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AA659",7921,"Circular","rep_cluster_268",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AA661",7635,"Circular","rep_cluster_617,rep_cluster_617",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AD602",7831,"Not closed","rep_cluster_1821",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","AF086",2062,"Circular","rep_cluster_1434",FALSE,"B. cereus",96.84
+"PS03311","Group_bingmayongensis","Food","AC589",4719,"Circular","rep_cluster_1892",FALSE,"B. pseudomycoides",91.36
+"PS03312","Group_III","Food","novel_b16fb0f58011202d568eec350451563c",73888,"Circular","rep_cluster_459,rep_cluster_920",FALSE,"B. anthracis",97.57
+"PS03313","Group_I","Food","AB257",11785,"Circular","rep_cluster_1830",FALSE,"B. pseudomycoides",98.51
+"PS03313","Group_I","Food","AA572",8739,"Circular","rep_cluster_1850",FALSE,"B. pseudomycoides",98.51
+"PS03313","Group_I","Food","AC589",4251,"Circular","rep_cluster_1892",FALSE,"B. pseudomycoides",98.51
+"PS03314","Group_III","Food","AB999",8069,"Circular","-",FALSE,"B. paranthracis",98.51
+"PS03314","Group_III","Food","novel_207b75376e602e678c87cc6d761388e2",5105,"Circular","rep_cluster_1909",FALSE,"B. paranthracis",98.51
+"PS03315","Group_III","Food","AA794",234171,"Circular","rep_cluster_125",FALSE,"B. paranthracis",97.61
+"PS03315","Group_III","Food","AC681",57951,"Circular","-",FALSE,"B. paranthracis",97.61
+"PS03315","Group_III","Food","novel_f72fb9ee63f8b74bff1e401c75b9ab15",13866,"Circular","rep_cluster_30",FALSE,"B. paranthracis",97.61
+"PS03315","Group_III","Food","AF067",6257,"Circular","rep_cluster_1950",FALSE,"B. paranthracis",97.61
+"PS03316","Group_III","Food","AA792",258575,"Circular","rep_cluster_125",FALSE,"B. paranthracis",97.54
+"PS03316","Group_III","Food","AC681",56772,"Circular","-",FALSE,"B. paranthracis",97.54
+"PS03316","Group_III","Food","AA659",8696,"Circular","rep_cluster_268",FALSE,"B. paranthracis",97.54
+"PS03316","Group_III","Food","AC588",5434,"Circular","-",FALSE,"B. paranthracis",97.54
+"PS03316","Group_III","Food","AF069",3091,"Circular","rep_cluster_1950",FALSE,"B. paranthracis",97.54
+"PS03318","Group_IV","Food","novel_18cb6025039148d41a0321c7bced4dca",327233,"Circular","rep_cluster_125",FALSE,"B. cereus",98.75
+"PS03319","Group_III","Food","novel_c3e66306645f38ee2e21af9ccf1efe62",8561,"Circular","rep_cluster_1836",FALSE,"B. paranthracis",98.47
+"PS03319","Group_III","Food","AC583",5900,"Circular","rep_cluster_1909",FALSE,"B. paranthracis",98.47
+"PS03319","Group_III","Food","novel_ca0fb528c99c707790ed5848bbcc2bf2",4238,"Circular","-",FALSE,"B. paranthracis",98.47
+"PS03319","Group_III","Food","novel_06e0bafbf7bd69712a6d3459617f99e7",3649,"Circular","-",FALSE,"B. paranthracis",98.47
+"PS03320","Group_I","Food","novel_f72f7bc133409cf81d49f5622827da64",221716,"Circular","rep_cluster_1869",FALSE,"B. pseudomycoides",98.18
+"PS03320","Group_I","Food","novel_670cb228f6e827983d47caa76b294d32",64051,"Circular","rep_cluster_1520,rep_cluster_459",FALSE,"B. pseudomycoides",98.18
+"PS03320","Group_I","Food","AB257",13788,"Circular","-",FALSE,"B. pseudomycoides",98.18
+"PS03320","Group_I","Food","AA572",8788,"Circular","rep_cluster_1850",FALSE,"B. pseudomycoides",98.18
+"PS03258","Group_IV","Human feces","novel_recovered_PS03258",374872,"Circular","Not typed",FALSE,"B. thuringiensis",97.81
+"PS03269","Group_IV","Human feces","novel_recovered_PS03269",427903,"Circular","Not typed",FALSE,"B. thuringiensis",96.3
+"PS03274","Group_III","Human feces","novel_recovered_PS03274",227158,"Circular","Not typed",FALSE,"B. paranthracis",98.9
+"PS03283","Group_V","Human feces","novel_recovered_PS03283",270338,"Circular","Not typed",FALSE,"B. toyonensis",99.35
+"PS03286","Group_IV","Human feces","novel_fac645fbed7887ce31b2b6eade7d04f5",517376,"Circular","Not typed",FALSE,"B. cereus",97.03
+"PS03288","Group_IV","Human feces","novel_fac645fbed7887ce31b2b6eade7d04f5",487384,"Circular","Not typed",FALSE,"B. cereus",96.84
+"PS03310","Group_IV","Food","novel_fac645fbed7887ce31b2b6eade7d04f5",487472,"Circular","Not typed",FALSE,"B. cereus",96.84
+"PS03313","Group_I","Food","novel_recovered_PS03313",480596,"Circular","Not typed",FALSE,"B. pseudomycoides",98.51

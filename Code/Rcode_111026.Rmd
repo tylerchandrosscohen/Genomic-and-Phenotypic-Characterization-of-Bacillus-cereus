@@ -1,0 +1,746 @@
+---
+title: "Slovenian Isolate Analysis"
+output: html_document
+date: "2025-11-07"
+---
+
+```{r Figure 2: Barchart showing cytotoxicity}
+# ---- Setup ----
+setwd("/Users/tyler/Library/CloudStorage/OneDrive-ThePennsylvaniaStateUniversity/Tyler's projects - Collaboration and External Projects/Slovenian Bacillus cereus Project/Manuscript/Code_Data")
+out_dir <- "cytotxicity_figures"
+dir.create(out_dir, showWarnings = FALSE)
+
+library(dplyr)
+library(ggplot2)
+library(ggdist)
+library(ggpp)
+library(multcompView)
+library(rstatix)
+library(ggpattern)
+library(ragg)
+
+# ---- Input ----
+df <- read.csv("Figure_2.csv", stringsAsFactors = FALSE, fileEncoding = "UTF-8-BOM")
+
+# Normalize panC group
+normalize_panC <- function(x) {
+  y <- toupper(trimws(as.character(x)))
+  y[y == "" | is.na(y)] <- "Group bingmayongensis"
+  y <- gsub("^PANC\\s*:?\\s*", "", y)
+  y <- gsub("^GROUP\\s*:?\\s*", "", y)
+  y <- gsub("^CLADE\\s*:?\\s*", "", y)
+  y <- gsub("_", "", y)
+  arabic <- c("1", "2", "3", "4", "5", "6", "7", "8")
+  roman  <- c("I", "II", "III", "IV", "V", "VI", "VII", "VIII")
+  for (i in seq_along(arabic)) y[y == arabic[i]] <- roman[i]
+  y[!(y %in% c(roman, "Group bingmayongensis"))] <- "Group bingmayongensis"
+  y
+}
+
+striped_isolates <- c("PS03262", "PS03263", "PS03283", "PS03288", "PS03292",
+                      "PS03293", "PS03297", "PS03302", "PS03298", "PS03310")
+
+# ---- Prepare data ----
+df_all <- df %>%
+  rename(panC_raw = panC) %>%
+  mutate(
+    panC         = normalize_panC(panC_raw),
+    Cytotox_mean = as.numeric(Avg),
+    Cytotox_se   = as.numeric(SE),
+    stripe_flag  = ifelse(Isolate %in% striped_isolates, "striped", "solid")
+  ) %>%
+  filter(!is.na(Isolate), !is.na(Cytotox_mean))
+
+full_palette <- c(
+  I    = "#577590",
+  II   = "#405966",
+  III  = "#45736B",
+  IV   = "#A7AE9E",
+  V    = "#86bbd8",
+  VIII = "#8090A0",
+  "Group bingmayongensis" = "#6C827D"
+)
+
+preferred_order <- c("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "Group bingmayongensis")
+
+# ---- Plot all isolates ----
+data_version <- "All"
+{
+
+  df_plot <- df_all
+
+  df_plot <- df_plot %>%
+    arrange(panC, Cytotox_mean, Isolate) %>%
+    mutate(Isolate = factor(Isolate, levels = unique(Isolate)))
+
+  present <- unique(df_plot$panC)
+  df_plot$panC <- factor(
+    df_plot$panC,
+    levels = intersect(preferred_order, c(present, "Group bingmayongensis"))
+  )
+
+  pal <- full_palette[intersect(names(full_palette), as.character(unique(df_plot$panC)))]
+
+  # ---- Bar plot ----
+  p_isolate <- ggplot(df_plot, aes(x = Isolate, y = Cytotox_mean, fill = panC)) +
+    ggpattern::geom_col_pattern(
+      aes(pattern = stripe_flag),
+      width = 0.8,
+      color = "grey20",
+      linewidth = 0.2,
+      pattern_fill = "white",
+      pattern_colour = "white",
+      pattern_angle = 45,
+      pattern_density = 0.35,
+      pattern_spacing = 0.02,
+      pattern_key_scale_factor = 0.6
+    ) +
+    geom_errorbar(
+      aes(ymin = Cytotox_mean - Cytotox_se, ymax = Cytotox_mean + Cytotox_se),
+      width = 0.25,
+      linewidth = 0.35,
+      color = "grey20"
+    ) +
+    geom_hline(yintercept = 0, color = "black", linewidth = 0.6) +
+    scale_fill_manual(values = pal, name = expression(italic(panC) ~ "Group")) +
+    scale_pattern_manual(values = c(solid = "none", striped = "stripe"), guide = "none") +
+    guides(pattern = "none") +
+    scale_y_continuous(
+      breaks = seq(-0.2, 1.2, by = 0.2),
+      limits = c(-0.2, 1.2),
+      expand = c(0, 0)
+    ) +
+    labs(x = "Isolate", y = "Average normalized cytotoxicity ± SE ") +
+    theme_minimal(base_size = 12) +
+    theme(
+      panel.grid      = element_blank(),
+      axis.line.y     = element_line(color = "black"),
+      axis.line.x     = element_line(color = "black"),
+      axis.ticks      = element_line(color = "black"),
+      axis.text.x     = element_text(angle = 60, hjust = 1, vjust = 1, size = 12, color = "black"),
+      axis.text.y     = element_text(color = "black"),
+      axis.title      = element_text(color = "black"),
+      legend.position = "top"
+    )
+
+  ggsave(file.path(out_dir, paste0("Isolate_Cytotoxicity_by_panC_meanSE_", data_version, ".png")),
+         p_isolate, width = 12, height = 6, dpi = 600, device = ragg::agg_png)
+  ggsave(file.path(out_dir, paste0("Isolate_Cytotoxicity_by_panC_meanSE_", data_version, ".svg")),
+         p_isolate, width = 12, height = 6)
+
+  # ---- Violin plot with Kruskal-Wallis / Dunn significance ----
+  df_violin <- df_plot %>%
+    filter(panC != "UNKNOWN") %>%
+    droplevels()
+
+  df_violin$panC <- factor(
+    df_violin$panC,
+    levels = intersect(c("I", "II", "III", "IV", "V", "VI", "VII", "VIII"), unique(df_violin$panC))
+  )
+  pal2 <- full_palette[levels(df_violin$panC)]
+
+  # ANOVA/Tukey was replaced: Levene's test gives p = 0.025 (unequal variances in a
+  # badly unbalanced design). Residuals are normal, so Kruskal-Wallis with Dunn
+  # post-hoc is used instead. See cytotoxicity_panC_stats.R.
+  MIN_N_POSTHOC <- 3   # a rank test on 1-2 observations carries no information
+
+  grp_n       <- df_violin %>% count(panC, name = "n")
+  keep_groups <- grp_n$panC[grp_n$n >= MIN_N_POSTHOC]
+  df_posthoc  <- df_violin %>% filter(panC %in% keep_groups) %>% droplevels()
+
+  if (nlevels(df_posthoc$panC) > 1) {
+    kw <- kruskal.test(Cytotox_mean ~ panC, data = df_violin)
+    cat(sprintf("Kruskal-Wallis: chi-squared = %.3f, df = %d, p = %.4g\n",
+                kw$statistic, kw$parameter, kw$p.value))
+
+    dunn_res <- rstatix::dunn_test(df_posthoc, Cytotox_mean ~ panC, p.adjust.method = "BH")
+    dunn_pvals <- setNames(dunn_res$p.adj, paste(dunn_res$group1, dunn_res$group2, sep = "-"))
+    dunn_letters <- multcompView::multcompLetters(dunn_pvals)$Letters
+
+    excluded <- setdiff(levels(df_violin$panC), names(dunn_letters))
+    if (length(excluded))
+      cat(sprintf("no post-hoc letter (n < %d): %s\n",
+                  MIN_N_POSTHOC, paste(excluded, collapse = ", ")))
+
+    # Groups too small to test get no letter
+    sig_letters_df <- data.frame(
+      panC   = factor(names(dunn_letters), levels = levels(df_violin$panC)),
+      letter = unname(dunn_letters)
+    )
+    sig_letters_df$y_pos <- max(df_violin$Cytotox_mean, na.rm = TRUE) + 0.10
+
+  } else {
+    sig_letters_df <- data.frame(panC = levels(df_violin$panC), letter = "", y_pos = NA)
+  }
+
+  p_violin <- ggplot(df_violin, aes(x = panC, y = Cytotox_mean, fill = panC)) +
+    geom_violin(width = 0.4, scale = "width", trim = FALSE, alpha = 0.8,
+                color = "black", linewidth = 0.5) +
+    geom_boxplot(width = 0.08, fill = "white", color = "black",
+                 linewidth = 0.6, outlier.shape = NA) +
+    geom_jitter(shape = 21, color = "black", stroke = 0.6, size = 2.5,
+                width = 0.10, height = 0.02, alpha = 0.95) +
+    geom_hline(yintercept = 0, color = "black", linewidth = 0.8) +
+    scale_fill_manual(values = pal2, guide = "none") +
+    scale_y_continuous(
+      limits = c(-0.2, max(df_violin$Cytotox_mean, na.rm = TRUE) + 0.25),
+      breaks = seq(-0.2, 1.4, by = 0.2),
+      expand = c(0, 0)
+    ) +
+    labs(
+      x = expression(italic(panC) ~ "Group"),
+      y = "Average Normalized Cytotoxicity"
+    ) +
+    theme_classic(base_size = 20) +
+    theme(
+      panel.background = element_rect(fill = "transparent", color = NA),
+      plot.background  = element_rect(fill = "transparent", color = NA),
+      axis.line        = element_line(color = "black", linewidth = 1),
+      axis.ticks       = element_line(color = "black", linewidth = 1),
+      axis.text.x      = element_text(color = "black"),
+      axis.text.y      = element_text(color = "black"),
+      axis.title       = element_text(color = "black")
+    )
+
+  ggsave(file.path(out_dir, paste0("panC_Violin_Cytotoxicity_", data_version, ".png")),
+         p_violin, width = 8, height = 5, dpi = 600, bg = "transparent",
+         device = ragg::agg_png)
+  ggsave(file.path(out_dir, paste0("panC_Violin_Cytotoxicity_", data_version, ".svg")),
+         p_violin, width = 8, height = 5, bg = "transparent")
+}
+```
+
+```{r Figure 3: fastANI and CSP2 visualization for Bt isolate}
+# ---- Setup ----
+setwd("/Users/tyler/Library/CloudStorage/OneDrive-ThePennsylvaniaStateUniversity/Tyler's projects - Collaboration and External Projects/Slovenian Bacillus cereus Project/Manuscript/Code_Data")
+out_dir <- "Bt_fastANI_CSP2_figures"
+dir.create(out_dir, showWarnings = FALSE)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(reshape2)
+
+# ---- fastANI heatmap ----
+# Columns: query, reference, ANI, fragments mapped, fragments total (no header)
+x <- read.csv("Figure_3_fastANI.csv", header = FALSE, stringsAsFactors = FALSE,
+              fileEncoding = "UTF-8-BOM")
+colnames(x) <- c("Query", "Reference", "ANI", "Fragments_Mapped", "Fragments_Total")
+
+x <- x %>%
+  mutate(
+    Query_clean     = gsub("_assembly_query$|_fasta_query$|_query$", "", Query),
+    Reference_clean = gsub("_assembly_ref$|_fasta_ref$|_ref$", "", Reference)
+  ) %>%
+  mutate(
+    # fastANI writes underscores where the strain names use hyphens
+    Query_clean     = gsub("_GC_91$", "_GC-91", gsub("_PB_54$", "_PB-54", Query_clean)),
+    Reference_clean = gsub("_GC_91$", "_GC-91", gsub("_PB_54$", "_PB-54", Reference_clean))
+  )
+
+order_clean <- c(
+  "israelensis_AM65_52",
+  "morrisoni_NB_176",
+  "PS03293",
+  "aizawai_ABTS1857",
+  "PS03288",
+  "kustaki_ABTS351",
+  "kurstaki_SA11",
+  "kurstaki_SA12",
+  "PS03263",
+  "PS03297",
+  "PS03292",
+  "PS03302",
+  "kurstaki__EG2348",
+  "PS03262",
+  "PS03298",
+  "PS03310",
+  "kurstaki_PB-54",
+  "aizawai_GC-91"
+)
+
+x2 <- x %>%
+  filter(Query_clean %in% order_clean, Reference_clean %in% order_clean) %>%
+  mutate(
+    Query_clean     = factor(Query_clean, levels = rev(order_clean)),
+    Reference_clean = factor(Reference_clean, levels = order_clean)
+  )
+
+p <- ggplot(x2, aes(x = Reference_clean, y = Query_clean, fill = ANI)) +
+  geom_tile(color = "white", linewidth = 0.35) +
+  geom_text(aes(label = sprintf("%.2f", ANI)), color = "black", size = 3.0) +
+  scale_fill_gradient(low = "#CCE0B8", high = "#527132") +
+  labs(x = NULL, y = NULL, fill = "ANI (%)") +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid       = element_blank(),
+    legend.position  = "right",
+    axis.text.x      = element_text(angle = 45, hjust = 1, vjust = 1, color = "black", size = 12),
+    axis.text.y      = element_text(color = "black", size = 12),
+    axis.ticks       = element_blank(),
+    panel.background = element_rect(fill = "transparent", color = NA),
+    plot.background  = element_rect(fill = "transparent", color = NA)
+  )
+
+print(p)
+
+ggsave(file.path(out_dir, "fastANI_Slovenian_heatmap.png"), p, width = 10, height = 9, dpi = 600, bg = "transparent")
+ggsave(file.path(out_dir, "fastANI_Slovenian_heatmap.svg"), p, width = 10, height = 9, bg = "transparent")
+
+# ---- CSP2 SNP distance heatmap ----
+csp2_all <- read.csv("Figure_3_CSP2.csv", header = FALSE, stringsAsFactors = FALSE,
+                     fileEncoding = "UTF-8-BOM")
+
+# V1 = query, V2 = reference, V3 = status, V4 = SNP distance
+names(csp2_all)[1:4] <- c("Query", "Reference", "Status", "SNP_Distance")
+
+combined_data <- csp2_all %>%
+  select(Query, Reference, Status, SNP_Distance) %>%
+  mutate(
+    Query        = gsub("_assembly$|_contigs$", "", Query),
+    Reference    = gsub("\\.fasta$", "", Reference),
+    SNP_Distance = as.numeric(SNP_Distance)
+  ) %>%
+  # Keep only PS0 vs reference comparisons
+  filter(
+    (grepl("^PS0", Query) & !grepl("^PS0", Reference)) |
+    (grepl("^PS0", Reference) & !grepl("^PS0", Query))
+  ) %>%
+  mutate(
+    SNP_Label = ifelse(is.na(SNP_Distance) | SNP_Distance > 100, ">100",
+                       as.character(round(SNP_Distance)))
+  )
+
+all_strains <- sort(unique(c(combined_data$Query, combined_data$Reference)))
+
+plot_data <- combined_data %>%
+  select(Query, Reference, SNP_Distance, SNP_Label) %>%
+  mutate(
+    Query     = factor(Query,     levels = all_strains),
+    Reference = factor(Reference, levels = all_strains)
+  ) %>%
+  filter(Query %in% unique(Query), Reference %in% unique(Reference)) %>%
+  mutate(
+    Query     = droplevels(Query),
+    Reference = droplevels(Reference)
+  )
+
+# ">100" values get the maximum colour
+plot_data_with_color <- plot_data %>%
+  mutate(SNP_for_color = ifelse(SNP_Label == ">100", 100, SNP_Distance))
+
+p <- ggplot(plot_data_with_color, aes(x = Reference, y = Query, fill = SNP_for_color)) +
+  geom_tile(color = "white", linewidth = 0.4) +
+  geom_text(aes(label = SNP_Label), size = 5, color = "black", fontface = "bold") +
+  scale_fill_gradient(low = "#527132", high = "#CCE0B8", na.value = "grey95", name = "SNP Distance") +
+  labs(x = NULL, y = NULL) +
+  theme_minimal(base_size = 10) +
+  theme(
+    axis.text.x     = element_text(angle = 45, hjust = 1, vjust = 1, size = 16, face = "bold", color = "black"),
+    axis.text.y     = element_text(size = 16, face = "bold", color = "black"),
+    panel.grid      = element_blank(),
+    plot.title      = element_text(hjust = 0.5, face = "bold", size = 13),
+    legend.position = "right",
+    legend.text     = element_text(size = 14),
+    legend.title    = element_text(size = 14, face = "bold")
+  )
+
+ggsave(file.path(out_dir, "CSP2_combined_SNP_heatmap.png"), p, width = 14, height = 12, dpi = 600)
+message("Generated: CSP2_combined_SNP_heatmap.png")
+ggsave(file.path(out_dir, "CSP2_combined_SNP_heatmap.svg"), p, width = 14, height = 12)
+message("Generated: CSP2_combined_SNP_heatmap.svg")
+
+# ---- Summary ----
+cat("\n=== CSP2 SNP Distance Summary (All Strains) ===\n")
+cat("\nTotal pairwise comparisons:", nrow(combined_data), "\n")
+cat("Total unique strains:", length(unique(c(combined_data$Query, combined_data$Reference))), "\n")
+
+cat("\nSNP Distance Statistics:\n")
+cat("Mean SNP distance:",   round(mean(combined_data$SNP_Distance,   na.rm = TRUE), 2), "\n")
+cat("Median SNP distance:", round(median(combined_data$SNP_Distance, na.rm = TRUE), 2), "\n")
+cat("Min SNP distance:",    round(min(combined_data$SNP_Distance,    na.rm = TRUE), 2), "\n")
+cat("Max SNP distance:",    round(max(combined_data$SNP_Distance,    na.rm = TRUE), 2), "\n")
+cat("\nComparisons with SNP distance > 100:", sum(combined_data$SNP_Distance > 100, na.rm = TRUE), "\n")
+```
+
+```{r Figure 4: Plasmid size distribution by panC and plasmid network}
+# ---- Setup ----
+setwd("/Users/tyler/Library/CloudStorage/OneDrive-ThePennsylvaniaStateUniversity/Tyler's projects - Collaboration and External Projects/Slovenian Bacillus cereus Project/Manuscript/Code_Data")
+
+library(ggplot2)
+library(ggridges)
+library(dplyr)
+library(stringr)
+library(igraph)
+
+# All Figure 4 outputs go in Figure_4/
+net_dir <- "Figure_4"
+dir.create(net_dir, showWarnings = FALSE)
+
+# ---- Input: two CSV sheets ----
+# Figure4_plasmid_table.csv: one row per plasmid (MOB-Recon size, topology,
+#   replicon type, hbl flag, closest BTyper3 type strain and ANI)
+# Figure4_mash_distances.csv: all-vs-all Mash distances between plasmids
+plasmids <- read.csv("Figure_4_plasmid_table.csv", stringsAsFactors = FALSE)
+mash_raw <- read.csv("Figure_4_mash_distances.csv", stringsAsFactors = FALSE)
+
+# Split Group IV into B. thuringiensis and B. cereus s.s. (by cry gene presence)
+bt_isolates <- c("PS03262", "PS03263", "PS03286", "PS03288", "PS03292",
+                 "PS03293", "PS03297", "PS03302", "PS03310")
+
+# Clean panC group names
+panC_map <- c(
+  "Group_I"               = "I",
+  "Group_II"              = "II",
+  "Group_III"             = "III",
+  "Group_IV"              = "IV",
+  "Group_V"               = "V",
+  "Group_VIII"            = "VIII",
+  "Group_bingmayongensis" = "bingmayongensis"
+)
+
+# ---- Ridge density data ----
+plasmid_df <- plasmids %>%
+  mutate(
+    isolate    = Isolate_ID,
+    topology   = Topology,
+    size_bp    = Size_bp,
+    log_size   = log10(Size_bp),
+    panC_group = recode(panC_Group, !!!panC_map),
+    panC_group = case_when(
+      panC_group == "IV" & isolate %in% bt_isolates  ~ "IV - B. thuringiensis",
+      panC_group == "IV" & !(isolate %in% bt_isolates) ~ "IV - B. cereus s.s.",
+      TRUE ~ panC_group
+    )
+  )
+
+# ---- Ridge density plot ----
+circular_color <- "#457b9d"
+linear_color   <- "#b56576"
+
+p <- ggplot(plasmid_df, aes(x = log_size, y = panC_group, fill = topology)) +
+  geom_density_ridges(alpha = 0.7, scale = 0.9) +
+  geom_jitter(aes(color = topology), width = 0, height = 0.05, alpha = 0.4, size = 2) +
+  scale_fill_manual(name = "Topology",
+                    values = c("Circular" = circular_color, "Linear" = linear_color,
+                               "Not closed" = "#b56576")) +
+  scale_color_manual(name = "Topology",
+                     values = c("Circular" = circular_color, "Linear" = linear_color,
+                                "Not closed" = "#b56576")) +
+  scale_x_continuous(limits = c(2, 7), breaks = 2:7, labels = as.character(2:7)) +
+  scale_y_discrete(
+    labels = c(
+      "I"                     = "I",
+      "II"                    = "II",
+      "III"                   = "III",
+      "IV - B. thuringiensis" = expression(paste("IV - ", italic("B. thuringiensis"))),
+      "IV - B. cereus s.s."   = expression(paste("IV - ", italic("B. cereus"), " s.s.")),
+      "V"                     = "V",
+      "VIII"                  = "VIII",
+      "bingmayongensis"       = expression(italic("bingmayongensis"))
+    )
+  ) +
+  theme_minimal(base_family = "Arial") +
+  theme(
+    axis.text.x      = element_text(size = 16, family = "Arial", color = "black"),
+    axis.text.y      = element_text(size = 16, face = "bold", family = "Arial", color = "black"),
+    axis.title       = element_text(size = 18, face = "bold", family = "Arial", color = "black"),
+    axis.title.y     = element_text(margin = margin(r = 10), family = "Arial", color = "black"),
+    legend.position  = "top",
+    legend.text      = element_text(family = "Arial", color = "black", size = 16),
+    legend.title     = element_text(family = "Arial", color = "black", size = 16),
+    axis.line        = element_line(color = "black", linewidth = 0.6),
+    axis.ticks       = element_line(color = "black", linewidth = 0.5),
+    panel.grid       = element_blank(),
+    plot.margin      = margin(10, 10, 10, 10)
+  ) +
+  labs(x = "Plasmid Size (log10 scale)", y = "panC Group")
+
+print(p)
+
+ggsave(file.path(net_dir, "Plasmid_Size_by_panC_Ridge_Density.png"), plot = p, width = 12, height = 8, dpi = 300)
+ggsave(file.path(net_dir, "Plasmid_Size_by_panC_Ridge_Density.svg"), plot = p, width = 12, height = 8)
+message("Ridge density plot saved as PNG and SVG")
+
+# ---- Summary by panC group and topology ----
+summary_stats <- plasmid_df %>%
+  group_by(panC_group, topology) %>%
+  summarise(
+    n              = n(),
+    mean_size_bp   = round(mean(size_bp), 0),
+    median_size_bp = round(median(size_bp), 0),
+    min_size_bp    = min(size_bp),
+    max_size_bp    = max(size_bp),
+    .groups = "drop"
+  ) %>%
+  arrange(panC_group, topology)
+
+cat("\nPlasmid size by panC group and topology (topology from MOB-Recon)\n")
+print(summary_stats, n = Inf)
+
+topology_by_group <- plasmid_df %>%
+  group_by(panC_group) %>%
+  summarise(
+    Total        = n(),
+    Circular     = sum(topology == "Circular"),
+    Linear       = sum(topology == "Linear"),
+    Circular_Pct = paste0(round(100 * sum(topology == "Circular") / n(), 1), "%"),
+    Linear_Pct   = paste0(round(100 * sum(topology == "Linear") / n(), 1), "%"),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(Total))
+
+cat("\nTopology breakdown by panC group\n")
+print(topology_by_group, n = Inf)
+
+# ---- Plasmid network (mash distance) ----
+mash_cutoff <- 0.06
+
+path_to_id <- function(p) paste0(str_extract(p, "PS\\d+"), "|",
+                                 str_match(p, "plasmid_(.+)\\.fasta$")[, 2])
+
+nodes <- plasmids %>%
+  transmute(
+    id = paste0(Isolate_ID, "|", MOB_Cluster),
+    Isolate_ID, MOB_Cluster,
+    Closest_Type_Strain, Type_Strain_ANI, panC_Group,
+    Taxon = ifelse(Isolate_ID %in% bt_isolates, "B. thuringiensis", "Non-Bt"),
+    Isolation_Source = Isolation_Source,
+    Size_kb = round(Size_bp / 1000, 1),
+    Log10_Size = round(log10(Size_bp), 3),
+    Megaplasmid = Size_bp >= 200000,
+    Topology, Rep_Types, Plasmid_hbl
+  )
+
+mash <- mash_raw %>%
+  mutate(source = path_to_id(a), target = path_to_id(b)) %>%
+  filter(source < target)   # one row per unordered pair, no self-hits
+
+edges <- mash %>%
+  filter(Mash_Distance <= mash_cutoff) %>%
+  left_join(nodes %>% select(id, src_ts = Closest_Type_Strain, src_panC = panC_Group,
+                             src_cluster = MOB_Cluster), by = c("source" = "id")) %>%
+  left_join(nodes %>% select(id, tgt_ts = Closest_Type_Strain, tgt_panC = panC_Group,
+                             tgt_cluster = MOB_Cluster), by = c("target" = "id")) %>%
+  transmute(
+    source, target, interaction = "mash",
+    Mash_Distance = round(Mash_Distance, 4), Similarity = round(1 - Mash_Distance, 4),
+    Mash_p = signif(Mash_p, 3), Shared_Hashes,
+    Cross_Type_Strain = src_ts != tgt_ts,
+    Cross_panC        = src_panC != tgt_panC,
+    Same_MOB_Cluster  = src_cluster == tgt_cluster
+  )
+
+stopifnot(all(c(edges$source, edges$target) %in% nodes$id))
+
+g <- graph_from_data_frame(edges, directed = FALSE, vertices = nodes)
+nodes$Component      <- components(g)$membership[nodes$id]
+nodes$Degree         <- degree(g)[nodes$id]
+nodes$Component_Size <- as.vector(table(nodes$Component)[as.character(nodes$Component)])
+
+write.csv(nodes, file.path(net_dir, "Plasmid_Network_nodes.csv"), row.names = FALSE)
+write.csv(edges, file.path(net_dir, "Plasmid_Network_edges.csv"), row.names = FALSE)
+
+# Components (plasmid groups) that span more than one panC lineage
+cross_lineage <- nodes %>%
+  group_by(Component) %>%
+  filter(n() > 1) %>%
+  summarise(
+    Plasmids       = n(),
+    Isolates       = n_distinct(Isolate_ID),
+    panC_Groups    = paste(sort(unique(panC_Group)), collapse = ", "),
+    n_panC         = n_distinct(panC_Group),
+    Type_Strains   = paste(sort(unique(Closest_Type_Strain)), collapse = ", "),
+    n_Type_Strains = n_distinct(Closest_Type_Strain),
+    MOB_Clusters   = paste(sort(unique(MOB_Cluster)), collapse = ", "),
+    Median_kb      = median(Size_kb),
+    Any_hbl        = any(Plasmid_hbl),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(n_panC), desc(Plasmids))
+
+write.csv(cross_lineage, file.path(net_dir, "Plasmid_Network_components.csv"), row.names = FALSE)
+
+# ---- Network preview (final styling in Cytoscape) ----
+net_panC_cols <- c("Group_I" = "#E15759", "Group_II" = "#B07AA1", "Group_III" = "#F28E2B",
+                   "Group_IV" = "#4E79A7", "Group_V" = "#59A14F", "Group_VIII" = "#76B7B2",
+                   "Group_bingmayongensis" = "#EDC948")
+net_panC_labels <- expression("I", "II", "III", "IV", "V", "VIII", italic("bingmayongensis"))
+
+g_conn <- induced_subgraph(g, V(g)[degree(g) > 0])
+set.seed(42)
+lay <- layout_with_fr(g_conn, weights = E(g_conn)$Similarity)
+
+png(file.path(net_dir, "Plasmid_Network_preview.png"), width = 3000, height = 3000, res = 300)
+par(mar = c(0, 0, 0, 0))
+plot(g_conn, layout = lay, vertex.label = NA,
+     vertex.color = net_panC_cols[V(g_conn)$panC_Group],
+     vertex.frame.color = ifelse(V(g_conn)$Plasmid_hbl, "red", "grey30"),
+     vertex.frame.width = ifelse(V(g_conn)$Plasmid_hbl, 2.5, 1),
+     vertex.size = 2 + 1.5 * (V(g_conn)$Log10_Size - 3),
+     edge.color = ifelse(E(g_conn)$Cross_panC, "#b56576", "grey75"),
+     edge.width = ifelse(E(g_conn)$Cross_panC, 1.5, 0.6))
+legend("bottomleft", bty = "n", cex = 0.8, pt.cex = 1.6, pch = 21, pt.bg = net_panC_cols,
+       ncol = 2, legend = net_panC_labels,
+       title = expression(bolditalic("panC") ~ bold("group")))
+legend("bottomright", bty = "n", cex = 0.8, lwd = c(1.5, 0.6, NA), pch = c(NA, NA, 21),
+       col = c("#b56576", "grey75", "red"),
+       legend = c("Cross-lineage link", "Same-lineage link", "Carries hbl"))
+dev.off()
+
+cat(sprintf("Nodes: %d | edges: %d | connected plasmids: %d | singletons: %d\n",
+            vcount(g), ecount(g), sum(degree(g) > 0), sum(degree(g) == 0)))
+cat(sprintf("Cross-lineage edges: %d | components spanning >1 panC group: %d\n",
+            sum(edges$Cross_panC), sum(cross_lineage$n_panC > 1)))
+print(head(cross_lineage, 12), width = Inf)
+```
+
+```{r Figure 7: RT-qPCR dCt raincloud}
+# ---- Setup ----
+setwd("/Users/tyler/Library/CloudStorage/OneDrive-ThePennsylvaniaStateUniversity/Tyler's projects - Collaboration and External Projects/Slovenian Bacillus cereus Project/Manuscript/Code_Data")
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(ggdist)
+library(ggtext)   # markdown in axis text, for italic gene names
+
+# This machine starts R in the C locale, which mangles multibyte UTF-8
+# characters in plot labels; force UTF-8 before building the plot
+invisible(Sys.setlocale("LC_CTYPE", "en_US.UTF-8"))
+
+# ---- Input ----
+raw <- read.csv("Figure_7.csv", stringsAsFactors = FALSE, check.names = FALSE)
+
+# ---- Per-isolate dCt, one value per isolate x assay ----
+# dCt = Ct(target) - Ct(gatB), already calculated in the sheet.
+# Averaged over 2 biological x 3 technical replicates.
+# Lower dCt = more transcript relative to gatB.
+dct_iso <- raw %>%
+  pivot_longer(ends_with("_dct"), names_to = "target", values_to = "dCt") %>%
+  mutate(
+    target = sub("_dct$", "", target),
+    gene   = sub("_.*$", "", target),             # hblA / hblC / hblD
+    locus  = sub("^hbl[ACD]_", "", target)        # ABCD / CDA_ch / CDA_pl
+  ) %>%
+  group_by(Isolate, target, gene, locus) %>%
+  summarise(dCt = mean(dCt), .groups = "drop")
+
+# ---- Mean dCt per gene ----
+dct_summary <- dct_iso %>%
+  group_by(locus, gene) %>%
+  summarise(
+    n      = n(),
+    mean   = round(mean(dCt), 2),
+    sd     = round(sd(dCt), 2),
+    median = round(median(dCt), 2),
+    min    = round(min(dCt), 2),
+    max    = round(max(dCt), 2),
+    .groups = "drop"
+  )
+print(as.data.frame(dct_summary))
+
+# ---- Compare genes within each locus ----
+# Isolates are paired (each isolate has all three genes): Friedman test with
+# isolate as the block, then paired Wilcoxon signed-rank with Holm correction.
+# Comparisons are made WITHIN a locus only: each primer pair has its own
+# amplification offset, so dCt values are not comparable across loci.
+for (loc in unique(dct_iso$locus)) {
+  m <- dct_iso %>%
+    filter(locus == loc) %>%
+    select(Isolate, gene, dCt) %>%
+    pivot_wider(names_from = gene, values_from = dCt) %>%
+    select(-Isolate) %>%
+    as.matrix()
+
+  cat("\n== Locus:", loc, "==\n")
+  print(round(colMeans(m), 2))
+
+  fr <- friedman.test(m)
+  cat(sprintf("Friedman: chi2 = %.2f, df = %d, p = %.3g\n",
+              fr$statistic, fr$parameter, fr$p.value))
+
+  pw <- pairwise.wilcox.test(as.vector(m), rep(colnames(m), each = nrow(m)),
+                             paired = TRUE, p.adjust.method = "holm", exact = TRUE)
+  print(round(pw$p.value, 4))
+}
+
+# ---- Raincloud plot: one point per biological replicate ----
+LEVELS <- c("hblA_ABCD", "hblC_ABCD", "hblD_ABCD",
+            "hblA_CDA_ch", "hblC_CDA_ch", "hblD_CDA_ch",
+            "hblA_CDA_pl", "hblC_CDA_pl", "hblD_CDA_pl")
+PAL <- c("canonical chromosomal" = "#3A506B",
+         "secondary chromosomal" = "#689689",
+         "plasmid"               = "#D3A588")
+
+# dCt is recalculated from Ct and gatB so each target is normalised to gatB
+# from the same well set; technical replicates are averaged.
+d <- raw %>%
+  filter(!is.na(Isolate), !is.na(Replicate)) %>%
+  pivot_longer(c(ends_with("_ct"), -gatB_ct), names_to = "target", values_to = "Ct") %>%
+  mutate(
+    target = sub("_ct$", "", target),
+    dCt    = Ct - gatB_ct
+  ) %>%
+  filter(target != "gatB", !is.na(dCt)) %>%
+  group_by(Isolate, Replicate, target) %>%
+  summarise(dCt = mean(dCt, na.rm = TRUE), .groups = "drop") %>%
+  mutate(
+    locus = case_when(
+      grepl("_ABCD$",   target) ~ "canonical chromosomal",
+      grepl("_CDA_ch$", target) ~ "secondary chromosomal",
+      grepl("_CDA_pl$", target) ~ "plasmid"
+    ),
+    locus  = factor(locus, levels = names(PAL)),
+    target = factor(target, levels = LEVELS)
+  )
+
+cat(sprintf("%d points, %d assays, %d isolates\n",
+            nrow(d), nlevels(d$target), n_distinct(d$Isolate)))
+
+# x is numeric so each layer can be offset: points left of the tick,
+# boxplot on the tick, density cloud to the right
+d$xnum <- as.numeric(d$target)
+
+# Gene names in italics; -ch / -pl qualifiers stay roman
+lab <- levels(d$target)
+lab <- sub("^(hbl[ACD])_ABCD$",   "*\\1*<br>*hblCDAB*",   lab)
+lab <- sub("^(hbl[ACD])_CDA_ch$", "*\\1*<br>*hblCDA*-ch", lab)
+lab <- sub("^(hbl[ACD])_CDA_pl$", "*\\1*<br>*hblCDA*-pl", lab)
+
+p_raincloud <- ggplot(d, aes(y = dCt, fill = locus, colour = locus)) +
+  # Cloud: half-eye density, right of the tick
+  stat_halfeye(aes(x = xnum), adjust = 0.8, width = 0.55, justification = -0.18,
+               .width = 0, point_colour = NA, alpha = 0.75) +
+  # Umbrella: narrow boxplot on the tick
+  geom_boxplot(aes(x = xnum, group = target), width = 0.07,
+               outlier.shape = NA, alpha = 0.9, colour = "grey25", linewidth = 0.3) +
+  # Rain: one point per biological replicate, left of the box
+  geom_jitter(aes(x = xnum - 0.20), width = 0.055, height = 0, size = 1.5,
+              alpha = 0.8, shape = 21, colour = "white", stroke = 0.25) +
+  scale_fill_manual(values = PAL, name = NULL,
+                    guide = guide_legend(override.aes = list(shape = NA, alpha = 0.8))) +
+  scale_colour_manual(values = PAL, guide = "none") +
+  # 0 at the bottom: LOWER on the page = MORE transcript (dCt is inverse to abundance)
+  scale_y_continuous(expression(Delta * "Ct (target - " * italic("gatB") * ")"),
+                     breaks = seq(0, 12, 1)) +
+  scale_x_continuous(NULL, breaks = seq_along(lab), labels = lab,
+                     expand = expansion(add = c(0.45, 0.55))) +
+  coord_cartesian(clip = "off") +
+  theme_classic(base_size = 9) +
+  theme(
+    axis.line       = element_line(linewidth = 0.3),
+    axis.ticks      = element_line(linewidth = 0.3),
+    axis.text.x     = element_markdown(size = 7.5, lineheight = 1.15),
+    legend.position = "top",
+    legend.key.size = unit(0.35, "cm"),
+    legend.text     = element_text(size = 8),
+    plot.margin     = margin(6, 10, 4, 6)
+  )
+
+print(p_raincloud)
+
+dir.create("Figure_7", showWarnings = FALSE)
+ggsave(file.path("Figure_7", "raincloud_ct.png"), p_raincloud, width = 7.4, height = 4.0, dpi = 600, bg = "white")
+ggsave(file.path("Figure_7", "raincloud_ct.svg"), p_raincloud, width = 7.4, height = 4.0)
+```

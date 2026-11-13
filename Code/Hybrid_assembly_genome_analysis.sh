@@ -60,4 +60,4 @@ kSNP4 -in group_IV -k 21 -outdir group_IV_out/ -core -ML -CPU 2 -debug
 kSNP4 -in group_V -k 21 -outdir group_V_out/ -core -ML -CPU 2 -debug
 
 #12. RaxML for phylogenetic tree building
-for d in /storage/work/tfc5209/Slovenian_BC/10_kSNP4/ksnp4_out_*/; do [ -d "$d" ] || continue; g=$(basename "$d" | sed 's/^ksnp4_out_//'); o=/storage/work/tfc5209/Slovenian_BC/11_raxML/raxML_out_$g; mkdir -p "$o"; a=$(find "$d" -name "*core*SNP*.fasta" | head -1); if [ -f "$a" ]; then (cd "$o" && raxml-ng --all --msa "$a" --model GTR+G --prefix "group_$g" --seed 1234567890 --bs-trees 1000 --threads 2); else echo "ERROR: no core SNP matrix in $d"; fi; done
+for d in /storage/work/tfc5209/Slovenian_BC/10_kSNP4/ksnp4_out_*/; do [ -d "$d" ] || continue; g=$(basename "$d" | sed 's/^ksnp4_out_//'); o=/storage/work/tfc5209/Slovenian_BC/11_raxML/raxML_out_$g; mkdir -p "$o"; a=$(find "$d" -name "*core*SNP*.fasta" | head -1); if [ -f "$a" ]; then (cd "$o" && raxmlHPC-PTHREADS -T 2 -f a -m GTRGAMMA -s "$a" -x 165 -p 165 -# 1000 -n "group_$g"); else echo "ERROR: no core SNP matrix in $d"; fi; done
